@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Histoire - Myriam ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose-pale: #ffe4e1;
+            --rouge-passion: #e63946;
+            --blanc: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #fff5f5 100%);
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+            animation: bodyEnter 0.9s ease;
+        }
+        @keyframes bodyEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Coeurs flottants en fond */
+        .hearts-bg {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .heart-float {
+            position: absolute;
+            animation: floatUp linear infinite;
+            opacity: 0.35;
+        }
+        @keyframes floatUp {
+            0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10%  { opacity: 0.5; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Pétales */
+        .petal {
+            position: absolute;
+            width: 12px; height: 12px;
+            background: radial-gradient(circle at 30% 30%, #ff9eb5, #e91e63);
+            border-radius: 0 100% 0 100%;
+            animation: petalFall linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes petalFall {
+            0%   { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+            10%  { opacity: 0.6; }
+            100% { transform: translateY(100vh) rotate(540deg) translateX(40px); opacity: 0; }
+        }
+
+        /* Étoiles scintillantes */
+        .twinkle {
+            position: fixed;
+            pointer-events: none;
+            color: #ffb3cc;
+            animation: twinkleAnim ease-in-out infinite;
+            z-index: 0;
+        }
+        @keyframes twinkleAnim {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        /* MENU */
+        nav {
+            position: fixed; top: 20px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.92);
+            padding: 10px 25px;
+            border-radius: 50px;
+            z-index: 3000;
+            box-shadow: 0 5px 20px rgba(230,57,70,0.15);
+            border: 1px solid var(--rose-pale);
+            backdrop-filter: blur(8px);
+            display: flex; gap: 0;
+            animation: navSlideDown 0.7s ease 0.2s both;
+        }
+        @keyframes navSlideDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--rouge-passion);
+            font-weight: 600;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        nav a:hover { background: var(--rose-pale); transform: translateY(-1px); }
+        nav a.active { background: rgba(230,57,70,0.1); }
+
+        .container { max-width: 700px; margin: 0 auto; padding: 100px 20px 60px; position: relative; z-index: 2; }
+
+        .page {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            opacity: 0; transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .page.visible { opacity: 1; transform: translateY(0); }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--rouge-passion);
+            margin-bottom: 20px;
+            animation: gentlePulse 3s ease-in-out infinite;
+        }
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .message-box {
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(230,57,70,0.1);
+            line-height: 1.8;
+            margin: 20px 0;
+            border: 1px solid var(--rose-pale);
+            backdrop-filter: blur(5px);
+            transition: box-shadow 0.3s, transform 0.3s;
+            max-width: 600px;
+        }
+        .message-box:hover {
+            box-shadow: 0 20px 50px rgba(230,57,70,0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Photos polaroid avec tilt 3D */
+        .photo-card {
+            background: white;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            margin: 20px auto;
+            max-width: 280px;
+            transform: rotate(var(--rotation));
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .photo-card::after {
+            content: attr(data-caption);
+            position: absolute;
+            bottom: 8px; left: 0; right: 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1rem;
+            color: #999;
+            text-align: center;
+        }
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.05) !important;
+            box-shadow: 0 25px 60px rgba(230,57,70,0.25);
+            z-index: 10;
+        }
+        .photo-card img { width: 100%; border-radius: 2px; display: block; }
+
+        /* Bandeau décoratif */
+        .love-banner {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--rouge-passion);
+            opacity: 0.6;
+            padding: 20px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .love-banner span {
+            display: inline-block;
+            animation: marquee 18s linear infinite;
+        }
+        @keyframes marquee {
+            from { transform: translateX(100vw); }
+            to { transform: translateX(-100%); }
+        }
+
+        /* Curseur cœur */
+        .cursor-heart {
+            position: fixed;
+            pointer-events: none;
+            color: var(--rouge-passion);
+            z-index: 4000;
+            font-size: 1.2rem;
+        }
+
+        /* Transition overlay */
+        .transition-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffe4f0 100%);
+            z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 15px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.55s ease;
+        }
+        .transition-overlay.show { opacity: 1; pointer-events: all; }
+        .transition-overlay .tov-heart {
+            font-size: 5rem;
+            animation: heartbeat 0.6s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            75% { transform: scale(1.1); }
+        }
+        .transition-overlay .tov-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #e63946;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fond romantique -->
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- Étoiles -->
+<div id="starsLayer"></div>
+
+<nav>
+    <a onclick="goTo('index.html')">♡ Site Principal</a>
+    <a class="active">Notre Histoire</a>
+    <a onclick="goTo('page1.html')">Espace Pardon 🥺</a>
+</nav>
+
+<div class="container">
+    <section class="page visible">
+        <p style="opacity:0.5; font-size:0.85rem; letter-spacing:2px; text-transform:uppercase;">Dossier confidentiel</p>
+        <h1>Bienvenue Mymy ❤️</h1>
+        <div class="message-box">Scrolle doucement pour voir à quel point tu m'as rendu accro...</div>
+        <div class="love-banner">
+            <span>❤️ &nbsp; Je t'aime &nbsp; ♡ &nbsp; Mon amour &nbsp; 💕 &nbsp; Pour toujours &nbsp; 🌹 &nbsp; Je t'aime &nbsp; ♡ &nbsp; Mon amour &nbsp; 💕 &nbsp; Pour toujours &nbsp; 🌹 &nbsp;</span>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="photo-card" style="--rotation: -3deg;" data-caption="tu es ma lumière ✨">
+            <img src="image1.jpeg" alt="">
+        </div>
+        <div class="message-box">T'es tellement belle que parfois je bugge devant toi comme un vieux PC.</div>
+        <div class="photo-card" style="--rotation: 2deg;" data-caption="mon coeur ♡">
+            <img src="image2.jpeg" alt="">
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="photo-card" style="--rotation: -2deg;" data-caption="nos souvenirs 🌸">
+            <img src="image3.jpeg" alt="">
+        </div>
+        <div class="message-box">À 18 ans, on construit déjà notre futur. Je t'appartiens corps et âme.</div>
+        <div class="photo-card" style="--rotation: 3deg;" data-caption="pour toujours 💕">
+            <img src="image4.jpeg" alt="">
+        </div>
+    </section>
+
+    <section class="page">
+        <h1>Tu es tout pour moi</h1>
+        <div class="message-box" style="font-family:'Dancing Script',cursive; font-size:1.6rem; color:#e63946;">
+            Chaque jour avec toi est le plus beau jour de ma vie ♡
+        </div>
+        <button onclick="goTo('page1.html')" style="
+            margin-top:20px; padding:14px 35px;
+            font-family:'Dancing Script',cursive; font-size:1.4rem;
+            background:linear-gradient(135deg,#ff6b9d,#e63946); color:white;
+            border:none; border-radius:50px; cursor:pointer;
+            box-shadow:0 8px 25px rgba(230,57,70,0.4);
+            transition:all 0.3s;
+        " onmouseover="this.style.transform='translateY(-4px) scale(1.05)'"
+           onmouseout="this.style.transform=''">
+            Lire ma lettre pour toi 🥺
+        </button>
+    </section>
+</div>
+
+<!-- Transition overlay -->
+<div class="transition-overlay" id="transitionOverlay">
+    <div class="tov-heart">💕</div>
+    <div class="tov-text">avec amour...</div>
+</div>
+
+<script>
+    // ---- TRANSITION ----
+    function goTo(url) {
+        const overlay = document.getElementById('transitionOverlay');
+        overlay.classList.add('show');
+        setTimeout(() => { window.location.href = url; }, 650);
+    }
+
+    // ---- SCROLL REVEAL ----
+    const obs = new IntersectionObserver((es) => {
+        es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.page').forEach(p => obs.observe(p));
+
+    // ---- CURSEUR COEURS ----
+    document.onmousemove = (e) => {
+        if (Math.random() > 0.93) {
+            const h = document.createElement('div');
+            h.innerHTML = ['❤️','💕','♡','🌸'][Math.floor(Math.random()*4)];
+            h.className = 'cursor-heart';
+            h.style.left = e.clientX + 'px';
+            h.style.top = e.clientY + 'px';
+            h.animate([
+                { opacity: 1, transform: 'translateY(0) scale(1)' },
+                { opacity: 0, transform: 'translateY(-40px) scale(0.6)' }
+            ], { duration: 1000, easing: 'ease-out' });
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 1000);
+        }
+    };
+
+    // ---- COEURS FLOTTANTS ----
+    (function createHearts() {
+        const bg = document.getElementById('heartsBg');
+        const items = ['♡', '💗', '💕', '🌸', '✨', '🌹'];
+        for (let i = 0; i < 20; i++) {
+            const el = document.createElement('div');
+            el.className = 'heart-float';
+            el.textContent = items[Math.floor(Math.random() * items.length)];
+            el.style.left = Math.random() * 100 + '%';
+            el.style.animationDuration = (Math.random() * 10 + 8) + 's';
+            el.style.animationDelay = Math.random() * 10 + 's';
+            el.style.fontSize = (Math.random() * 14 + 14) + 'px';
+            bg.appendChild(el);
+        }
+    })();
+
+    // ---- PETALES ----
+    setInterval(() => {
+        const bg = document.getElementById('heartsBg');
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 5 + 6) + 's';
+        bg.appendChild(p);
+        setTimeout(() => p.remove(), 11000);
+    }, 900);
+
+    // ---- ETOILES ----
+    (function createStars() {
+        const layer = document.getElementById('starsLayer');
+        const chars = ['✦','✧','⋆','˚'];
+        for (let i = 0; i < 15; i++) {
+            const s = document.createElement('div');
+            s.className = 'twinkle';
+            s.textContent = chars[Math.floor(Math.random() * chars.length)];
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.top = Math.random() * 100 + 'vh';
+            s.style.fontSize = (Math.random() * 10 + 8) + 'px';
+            s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            s.style.animationDelay = Math.random() * 4 + 's';
+            layer.appendChild(s);
+        }
+    })();
+
+    // ---- PARALLAX PHOTOS 3D ----
+    document.querySelectorAll('.photo-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            const rot = parseFloat(getComputedStyle(card).getPropertyValue('--rotation')) || 0;
+            card.style.transform = `rotate(${rot * 0.3}deg) perspective(600px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) scale(1.05)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+</script>
+</body>
+</html>

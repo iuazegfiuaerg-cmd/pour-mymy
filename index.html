@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi, Myriam ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose-pale: #fce4ec;
+    --rose: #f8bbd0;
+    --rose-fonce: #e91e63;
+    --or: #d4af37;
+    --ivoire: #fffaf0;
+    --mauve: #c9a9d4;
+    --prune: #6d4c6d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(135deg, #ffe4ec 0%, #fff0f5 50%, #ffe8f0 100%);
+    color: var(--prune);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Coeurs qui flottent en arrière-plan */
+  .hearts-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .heart-float {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  /* Pétales de rose */
+  .petal {
+    position: absolute;
+    width: 15px; height: 15px;
+    background: radial-gradient(circle at 30% 30%, #ff9eb5, #e91e63);
+    border-radius: 0 100% 0 100%;
+    animation: petalFall linear infinite;
+    opacity: 0.6;
+  }
+  @keyframes petalFall {
+    0% { transform: translateY(-50px) rotate(0deg) translateX(0); opacity: 0; }
+    10% { opacity: 0.7; }
+    100% { transform: translateY(100vh) rotate(720deg) translateX(50px); opacity: 0; }
+  }
+
+  /* Navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 245, 250, 0.92);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    padding: 18px 0;
+    box-shadow: 0 4px 20px rgba(233, 30, 99, 0.1);
+    border-bottom: 1px solid rgba(233, 30, 99, 0.1);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  nav a {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: var(--prune);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  nav a:hover, nav a.active {
+    background: var(--rose);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+  }
+  nav a.locked::after {
+    content: " 🔒";
+    font-size: 0.9rem;
+  }
+  nav a.unlocked::after {
+    content: " ✨";
+    font-size: 0.9rem;
+  }
+
+  /* Compteur d'énigmes */
+  .counter {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(233, 30, 99, 0.2);
+    z-index: 99;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--rose-fonce);
+    border: 2px solid var(--rose);
+  }
+
+  /* Sections */
+  .page {
+    display: none;
+    min-height: 90vh;
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    animation: fadeIn 0.8s ease;
+  }
+  .page.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 5rem;
+    text-align: center;
+    color: var(--rose-fonce);
+    margin: 20px 0;
+    text-shadow: 2px 2px 10px rgba(233, 30, 99, 0.2);
+    animation: gentlePulse 3s ease-in-out infinite;
+  }
+  @keyframes gentlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--rose-fonce);
+    margin: 20px 0 30px;
+  }
+
+  h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--prune);
+    margin: 20px 0 15px;
+  }
+
+  p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin: 15px 0;
+  }
+
+  /* Carte décorative */
+  .card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 25px 0;
+    box-shadow: 0 10px 40px rgba(233, 30, 99, 0.15);
+    border: 1px solid rgba(233, 30, 99, 0.1);
+    backdrop-filter: blur(5px);
+    position: relative;
+  }
+  .card::before {
+    content: "♡";
+    position: absolute;
+    top: -15px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--rose);
+    color: white;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+  }
+
+  /* Page d'accueil */
+  .hero {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .hero .subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--prune);
+    margin-bottom: 30px;
+  }
+  .hero-emoji {
+    font-size: 4rem;
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.15); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+  }
+
+  /* Poème */
+  .poeme {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 2.2;
+    text-align: center;
+    color: var(--prune);
+    white-space: pre-line;
+  }
+  .poeme .accent {
+    color: var(--rose-fonce);
+    font-weight: 500;
+  }
+  /* Mot secret - légère variation couleur pour énigme 2 */
+  .secret-word {
+    color: #d97ea5;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+  }
+  .secret-word:hover {
+    color: var(--rose-fonce);
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(233, 30, 99, 0.5);
+  }
+
+  /* Liste des raisons */
+  .raisons {
+    list-style: none;
+    counter-reset: raison;
+  }
+  .raisons li {
+    counter-increment: raison;
+    padding: 15px 20px 15px 60px;
+    margin: 10px 0;
+    background: rgba(255, 230, 240, 0.6);
+    border-radius: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 1.15rem;
+  }
+  .raisons li::before {
+    content: counter(raison);
+    position: absolute;
+    left: 15px; top: 50%;
+    transform: translateY(-50%);
+    width: 35px; height: 35px;
+    background: var(--rose-fonce);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  .raisons li:hover {
+    transform: translateX(10px);
+    background: rgba(255, 200, 220, 0.8);
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.2);
+  }
+
+  /* Souvenirs - timeline */
+  .timeline {
+    position: relative;
+    padding: 20px 0;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 30px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--rose) 0%, var(--rose-fonce) 50%, var(--rose) 100%);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 15px 15px 15px 70px;
+    margin: 20px 0;
+  }
+  .timeline-item::before {
+    content: "♡";
+    position: absolute;
+    left: 18px; top: 15px;
+    background: var(--rose-fonce);
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
+  }
+  .timeline-item h4 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--rose-fonce);
+    margin-bottom: 5px;
+  }
+
+  /* Éléments cachés pour énigmes */
+  .hidden-clue {
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .hidden-clue.star-clue {
+    color: #ffd700;
+    opacity: 0.7;
+    font-size: 1.3rem;
+  }
+  .hidden-clue:hover {
+    transform: scale(1.5) rotate(15deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px gold);
+  }
+
+  /* Modale d'énigme */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(109, 76, 109, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: linear-gradient(135deg, #fff 0%, #fff0f5 100%);
+    padding: 40px;
+    border-radius: 25px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .modal h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--rose-fonce);
+    margin-bottom: 15px;
+  }
+  .modal p {
+    font-size: 1.2rem;
+    margin: 15px 0;
+  }
+  .modal input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-family: 'Cormorant Garamond', serif;
+    border: 2px solid var(--rose);
+    border-radius: 30px;
+    margin: 15px 0;
+    outline: none;
+    text-align: center;
+  }
+  .modal input:focus {
+    border-color: var(--rose-fonce);
+    box-shadow: 0 0 15px rgba(233, 30, 99, 0.3);
+  }
+  .modal button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-family: 'Dancing Script', cursive;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-fonce) 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 5px;
+  }
+  .modal button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+  }
+  .modal .close {
+    position: absolute;
+    top: 10px; right: 15px;
+    background: transparent;
+    color: var(--prune);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  .feedback {
+    margin-top: 15px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    min-height: 30px;
+  }
+  .feedback.success { color: #4caf50; }
+  .feedback.error { color: #e91e63; }
+
+  /* Bouton bisou */
+  .kiss-btn {
+    display: block;
+    margin: 30px auto;
+    padding: 18px 40px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #ff6b9d 0%, #e91e63 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s;
+  }
+  .kiss-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(233, 30, 99, 0.5);
+  }
+
+  /* Surprise finale */
+  .surprise-locked {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .surprise-locked .lock {
+    font-size: 5rem;
+    margin: 30px 0;
+    animation: wiggle 2s ease-in-out infinite;
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+  }
+  .surprise-unlocked {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    width: 10px; height: 10px;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  /* Galerie de coeurs cliquables */
+  .hearts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+  }
+  .click-heart {
+    font-size: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  .click-heart:hover {
+    transform: scale(1.3) rotate(10deg);
+    background: rgba(255, 255, 255, 0.5);
+  }
+  .click-heart.clicked {
+    animation: heartExplode 0.6s ease forwards;
+  }
+  @keyframes heartExplode {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.8); }
+    100% { transform: scale(0); opacity: 0; }
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Dancing Script', cursive;
+    color: var(--prune);
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 { font-size: 3.5rem; }
+    h2 { font-size: 2.2rem; }
+    .counter { top: 80px; right: 10px; padding: 8px 12px; font-size: 0.9rem; }
+    nav ul { gap: 15px; }
+    nav a { font-size: 1.1rem; padding: 5px 10px; }
+    .card { padding: 25px 20px; }
+    .poeme { font-size: 1.2rem; }
+  }
+
+  /* Indice caché - l'étoile filante */
+  .shooting-star {
+    position: absolute;
+    right: 30px;
+    top: 80px;
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all 0.3s;
+    z-index: 5;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+  .shooting-star:hover {
+    transform: scale(1.5);
+    opacity: 1;
+    filter: drop-shadow(0 0 15px gold);
+  }
+
+  /* Message final */
+  .final-message {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    color: var(--rose-fonce);
+    line-height: 1.3;
+    margin: 40px 0;
+    text-shadow: 2px 2px 15px rgba(233, 30, 99, 0.3);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(233, 30, 99, 0.2);
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rose) 0%, var(--rose-fonce) 100%);
+    width: 0%;
+    transition: width 0.8s ease;
+    border-radius: 5px;
+  }
+
+  .hint {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--mauve);
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  /* Entrance animation */
+  @keyframes bodyFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  body { animation: bodyFadeIn 0.9s ease; }
+
+  /* Page transition overlay */
+  .transition-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffe4f0 100%);
+    z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 15px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.55s ease;
+  }
+  .transition-overlay.show { opacity: 1; pointer-events: all; }
+  .transition-overlay .tov-heart {
+    font-size: 5rem;
+    animation: heartbeat 0.6s ease-in-out infinite;
+  }
+  .transition-overlay .tov-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose-fonce);
+    opacity: 0.8;
+  }
+
+  /* Parallax shimmer on cards */
+  .card { transform-style: preserve-3d; }
+  .card:hover { box-shadow: 0 20px 60px rgba(233, 30, 99, 0.25); }
+
+  /* Twinkling stars */
+  .twinkle-star {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    animation: twinkleStar ease-in-out infinite;
+    color: #ffd0e8;
+  }
+  @keyframes twinkleStar {
+    0%, 100% { opacity: 0.1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+
+  /* Notre Histoire nav link special style */
+  nav a.external-link {
+    background: linear-gradient(135deg, rgba(233,30,99,0.08), rgba(201,169,212,0.15));
+    border: 1px solid rgba(233,30,99,0.2);
+  }
+  nav a.external-link::after { content: " →"; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<nav>
+  <ul>
+    <li><a data-page="accueil" class="active">Accueil</a></li>
+    <li><a data-page="poeme">Mon Poème</a></li>
+    <li><a data-page="souvenirs">Nos Souvenirs</a></li>
+    <li><a data-page="raisons">Pourquoi Je T'aime</a></li>
+    <li><a data-page="surprise" id="surpriseLink" class="locked">Surprise</a></li>
+    <li><a class="external-link" onclick="goTo('index 2.html')">Notre Histoire</a></li>
+  </ul>
+</nav>
+
+<div class="counter">
+  ♡ Énigmes : <span id="enigmaCount">0</span>/4
+</div>
+
+<!-- PAGE ACCUEIL -->
+<section class="page active" id="accueil">
+  <div class="hero">
+    <div class="hero-emoji">💕</div>
+    <h1>Myriam</h1>
+    <p class="subtitle">~ Mon amour, ma vie, ma moitié ~</p>
+  </div>
+
+  <div class="card">
+    <p style="text-align: center; font-size: 1.4rem;">
+      Bienvenue dans ce petit coin d'univers que j'ai créé <em>rien que pour toi</em>.
+    </p>
+    <p style="text-align: center;">
+      Chaque page est remplie de mots que je voulais te dire, de souvenirs que je chéris,
+      et de raisons pour lesquelles tu fais battre mon cœur un peu plus fort chaque jour.
+    </p>
+    <p style="text-align: center;">
+      🌸 Et puis... j'ai glissé <strong>4 petites énigmes</strong> cachées dans les pages.
+      Trouve-les toutes pour débloquer la <em>surprise finale</em> ! 🌸
+    </p>
+  </div>
+
+  <div class="card">
+    <h3 style="text-align: center;">💗 Compte les cœurs, trouve celui qui brille différemment 💗</h3>
+    <div class="hearts-grid">
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart" id="magicHeart" style="filter: drop-shadow(0 0 8px gold);">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+      <span class="click-heart">💗</span>
+    </div>
+  </div>
+
+  <button class="kiss-btn" onclick="sendKiss()">Envoie-moi un bisou 💋</button>
+</section>
+
+<!-- PAGE POÈME -->
+<section class="page" id="poeme">
+  <h2>Mon Poème Pour Toi</h2>
+
+  <div class="card">
+    <div class="poeme">
+Myriam, avant toi mon monde était flou,
+Aujourd'hui tout a un sens, une <span class="accent">couleur</span>,
+Tu as fait de moi un homme fou,
+Fou de toi, de ton âme et de ta douceur.
+
+Quand la vie s'agite et me bouscule,
+Ton <span class="secret-word" data-clue="sourire">sourire</span> est le phare qui me guide,
+Dans tes bras, chaque doute recule,
+Et notre lien devient si solide.
+
+Je t'appartiens, ce n'est plus un secret,
+Corps et âme, je suis lié à tes pas,
+Chaque instant près de toi est <span class="accent">parfait</span>,
+Mon refuge, ma paix, c'est d'être dans tes bras.
+
+J'aime la chaleur de nos regards complices,
+Ce feu intérieur qui jamais ne s'éteint,
+Tu transformes le quotidien en délice,
+Et je suis si fier de tenir ta main.
+
+Car tu es mon <span class="accent">évidence</span>, mon seul horizon,
+Celle avec qui je veux écrire l'avenir,
+Myriam, tu es ma plus belle saison,
+Mon unique promesse, mon plus beau désir.
+
+
+<span class="accent">— Avec tout mon amour, pour toujours ♡</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PAGE SOUVENIRS -->
+<section class="page" id="souvenirs">
+  <h2>Nos Plus Beaux Souvenirs</h2>
+  <span class="shooting-star" id="shootingStar" title="Une étoile filante...">🌠</span>
+
+  <div class="card">
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>Le jour où je t'ai rencontrée</h4>
+        <p>Je me souviens de chaque détail. Ton sourire, ta voix, cette sensation que quelque chose de grand venait de commencer. Tu ne le savais pas encore, mais mon cœur avait déjà choisi.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Notre premier "je t'aime"</h4>
+        <p>Trois mots tout simples, et pourtant toute une vie qui s'ouvrait devant nous. Ce jour-là, j'ai su que je ne voulais plus jamais me réveiller sans toi à mes côtés.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Tous les jours</h4>
+        <p>Te regarder dormir, ton visage paisible, ta respiration douce. Ces instants valent tous les trésors du monde. Tu es ma plus belle raison de me réveiller.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Nos fous rires</h4>
+        <p>Ces rires qui ne s'arrêtent plus, sans raison, juste parce que c'est toi et moi. Tu es la seule personne avec qui rire peut faire mal au ventre et remplir le cœur en même temps.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Le futur que je rêve avec toi</h4>
+        <p>Une maison, des voyages, peut-être des petits pieds qui courront dans le couloir un jour. Tout ce que j'imagine, je l'imagine avec toi. Toujours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE RAISONS -->
+<section class="page" id="raisons">
+  <h2>10 Raisons (parmi 1000) de T'aimer</h2>
+
+  <div class="card">
+    <ul class="raisons">
+      <li>Pour ton sourire qui illumine ma journée mieux que le soleil.</li>
+      <li>Pour ta main qui trouve toujours la mienne au bon moment.</li>
+      <li>Pour ta façon de froncer les sourcils quand tu réfléchis — c'est la chose la plus mignonne au monde.</li>
+      <li>Pour ton rire qui est ma mélodie préférée.</li>
+      <li>Pour tes petits mots doux le matin qui donnent envie d'affronter le monde.</li>
+      <li>Pour ta patience, ta douceur, ta tendresse infinie.</li>
+      <li>Pour ta force quand tout s'écroule, et ta <span class="hidden-clue star-clue" id="hiddenStar" title="Clique-moi...">★</span> lumière dans les moments sombres.</li>
+      <li>Pour la façon dont tu prends soin de moi sans même t'en rendre compte.</li>
+      <li>Pour tes rêves que je veux partager et construire avec toi.</li>
+      <li>Parce que tu es toi, <em>toi</em>, simplement et magnifiquement toi. ♡</li>
+    </ul>
+  </div>
+
+  <div class="card" style="text-align: center;">
+    <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--rose-fonce);">
+      Et si tu me donnes 1000 ans, je te trouverai encore 1000 raisons. 💕
+    </p>
+  </div>
+</section>
+
+<!-- PAGE SURPRISE -->
+<section class="page" id="surprise">
+  <div id="surpriseLocked" class="surprise-locked">
+    <h2>La Surprise...</h2>
+    <div class="lock">🔒</div>
+    <p style="font-size: 1.3rem;">
+      Cette page est encore verrouillée, mon amour.
+    </p>
+    <p>
+      Reviens quand tu auras trouvé les <strong>4 petites énigmes</strong> cachées dans le site.
+    </p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p id="progressText" style="font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--rose-fonce);">
+      0 / 4 énigmes résolues
+    </p>
+    <p class="hint">Petits indices :<br>
+      🌸 Un cœur brille un peu plus fort sur la page d'accueil<br>
+      🌸 Un mot du poème a une teinte légèrement différente<br>
+      🌸 Une étoile filante traverse les souvenirs<br>
+      🌸 Une petite étoile se cache dans la liste des raisons
+    </p>
+  </div>
+
+  <div id="surpriseUnlocked" class="surprise-unlocked" style="display: none;">
+    <h2>Ma Surprise Pour Toi</h2>
+    <div style="font-size: 4rem; margin: 20px 0;">💖🌹💖</div>
+
+    <div class="card">
+      <p class="final-message">
+        Myriam, mon amour,<br>
+        tu es la plus belle chose<br>
+        qui me soit arrivée.
+      </p>
+      <p style="font-size: 1.3rem; text-align: center;">
+        Merci d'exister. Merci d'être ma femme, ma complice, mon repère.<br>
+        Merci pour chaque matin, chaque rire, chaque câlin, chaque regard.
+      </p>
+      <p style="font-size: 1.3rem; text-align: center; margin-top: 25px;">
+        Je te promets de t'aimer aujourd'hui,<br>
+        demain,<br>
+        et tous les jours qui viendront après.
+      </p>
+      <p style="font-family: 'Great Vibes', cursive; font-size: 3rem; text-align: center; color: var(--rose-fonce); margin-top: 30px;">
+        Je t'aime. ♡
+      </p>
+      <p style="text-align: center; font-size: 1.2rem; font-style: italic; margin-top: 20px;">
+        — Ton mari, pour toujours
+      </p>
+    </div>
+
+    <button class="kiss-btn" onclick="bigSurprise()">Clique pour un méga câlin virtuel 🤗</button>
+  </div>
+</section>
+
+<!-- MODALE ÉNIGME -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <h3 id="modalTitle">Une petite énigme...</h3>
+    <p id="modalRiddle"></p>
+    <input type="text" id="modalInput" placeholder="Ta réponse, mon amour..." autocomplete="off">
+    <button onclick="checkAnswer()">Valider ♡</button>
+    <div class="feedback" id="modalFeedback"></div>
+  </div>
+</div>
+
+<!-- Transition overlay -->
+<div class="transition-overlay" id="transitionOverlay">
+  <div class="tov-heart">💕</div>
+  <div class="tov-text">avec amour...</div>
+</div>
+
+<footer>
+  <p>♡ Fait avec tout mon amour, rien que pour toi Myriam ♡</p>
+</footer>
+
+<script>
+  // ---- ÉTAT ----
+  const state = {
+    solved: { 1: false, 2: false, 3: false, 4: false },
+    currentEnigma: null
+  };
+
+  // ---- ÉNIGMES ----
+  const enigmas = {
+    1: {
+      title: "Énigme du Cœur Brillant ♡",
+      riddle: "Je bats plus fort quand tu es là, je t'appartiens depuis le premier jour. Qu'est-ce que c'est, cette petite chose rouge qui ne vit que pour toi ?",
+      answer: ["coeur", "cœur", "mon coeur", "mon cœur"],
+      success: "Oui ! Mon cœur t'appartient entièrement 💗"
+    },
+    2: {
+      title: "Énigme du Mot Caché 🌟",
+      riddle: "Tu as trouvé le mot secret ! Dans mon poème, je dis que tes yeux en sont deux. Ces petites choses qui brillent dans le ciel, qu'est-ce que c'est ?",
+      answer: ["etoile", "étoile", "etoiles", "étoiles"],
+      success: "Bravo mon amour ! Tes yeux sont deux étoiles magnifiques ✨"
+    },
+    3: {
+      title: "Énigme de l'Étoile Filante 🌠",
+      riddle: "Une étoile filante passe... fais un vœu ! Dans la tradition, qu'est-ce qu'on fait quand on voit une étoile filante, en un mot ?",
+      answer: ["voeu", "vœu", "un voeu", "un vœu", "faire un voeu", "faire un vœu"],
+      success: "Mon vœu, c'est que tu sois heureuse pour toujours 🌠💫"
+    },
+    4: {
+      title: "Énigme de la Petite Étoile ★",
+      riddle: "Dernière énigme ! Complète cette phrase : 'Je t'___, Myriam.' (le mot le plus important au monde, pour nous deux)",
+      answer: ["aime", "j'aime", "t'aime", "je t'aime"],
+      success: "Moi aussi, mon amour. Plus que tout. 💕"
+    }
+  };
+
+  // ---- CRÉATION COEURS FLOTTANTS ----
+  function createHearts() {
+    const bg = document.getElementById('heartsBg');
+    const emojis = ['♡', '💗', '💕', '🌸', '✨', '🌹'];
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-float';
+      heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      heart.style.animationDelay = Math.random() * 10 + 's';
+      heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      bg.appendChild(heart);
+    }
+  }
+  createHearts();
+
+  // ---- NAVIGATION ----
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const page = e.target.dataset.page;
+      if (e.target.classList.contains('locked')) {
+        showToast("Résous d'abord les 4 énigmes, mon amour ♡");
+        return;
+      }
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      e.target.classList.add('active');
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(page).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // ---- MODALE ----
+  function openEnigma(num) {
+    if (state.solved[num]) {
+      showToast("Tu as déjà résolu celle-ci, mon amour ♡");
+      return;
+    }
+    state.currentEnigma = num;
+    const e = enigmas[num];
+    document.getElementById('modalTitle').textContent = e.title;
+    document.getElementById('modalRiddle').textContent = e.riddle;
+    document.getElementById('modalInput').value = '';
+    document.getElementById('modalFeedback').textContent = '';
+    document.getElementById('modalFeedback').className = 'feedback';
+    document.getElementById('modalOverlay').classList.add('show');
+    setTimeout(() => document.getElementById('modalInput').focus(), 300);
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+  }
+
+  function checkAnswer() {
+    const num = state.currentEnigma;
+    if (!num) return;
+    const input = document.getElementById('modalInput').value.trim().toLowerCase();
+    const validAnswers = enigmas[num].answer.map(a => a.toLowerCase());
+    const feedback = document.getElementById('modalFeedback');
+
+    if (validAnswers.some(a => input === a || input.includes(a))) {
+      state.solved[num] = true;
+      feedback.textContent = enigmas[num].success;
+      feedback.className = 'feedback success';
+      launchConfetti();
+      updateProgress();
+      setTimeout(closeModal, 2500);
+    } else {
+      feedback.textContent = "Pas tout à fait... réessaie mon cœur 💕";
+      feedback.className = 'feedback error';
+    }
+  }
+
+  document.getElementById('modalInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkAnswer();
+  });
+
+  // ---- TRIGGERS ÉNIGMES ----
+  document.getElementById('magicHeart').addEventListener('click', () => openEnigma(1));
+  document.querySelectorAll('.click-heart').forEach((h, i) => {
+    if (h.id !== 'magicHeart') {
+      h.addEventListener('click', () => {
+        h.classList.add('clicked');
+        setTimeout(() => {
+          h.classList.remove('clicked');
+          h.style.transform = '';
+          h.style.opacity = '';
+        }, 600);
+      });
+    }
+  });
+
+  document.querySelector('.secret-word').addEventListener('click', () => openEnigma(2));
+  document.getElementById('shootingStar').addEventListener('click', () => openEnigma(3));
+  document.getElementById('hiddenStar').addEventListener('click', () => openEnigma(4));
+
+  // ---- PROGRESSION ----
+  function updateProgress() {
+    const count = Object.values(state.solved).filter(v => v).length;
+    document.getElementById('enigmaCount').textContent = count;
+    const pct = (count / 4) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `${count} / 4 énigmes résolues`;
+
+    if (count === 4) {
+      document.getElementById('surpriseLink').classList.remove('locked');
+      document.getElementById('surpriseLink').classList.add('unlocked');
+      document.getElementById('surpriseLocked').style.display = 'none';
+      document.getElementById('surpriseUnlocked').style.display = 'block';
+      setTimeout(() => {
+        showToast("✨ La surprise est débloquée ! Clique sur 'Surprise' ✨");
+      }, 1000);
+    }
+  }
+
+  // ---- CONFETTIS ----
+  function launchConfetti() {
+    const colors = ['#ff6b9d', '#e91e63', '#ffd700', '#ff9eb5', '#c9a9d4'];
+    const emojis = ['♡', '💗', '💕', '🌸', '✨', '💖'];
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      c.style.color = colors[Math.floor(Math.random() * colors.length)];
+      c.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      c.style.left = (Math.random() * 100) + 'vw';
+      c.style.top = '-20px';
+      document.body.appendChild(c);
+      const duration = Math.random() * 2000 + 2000;
+      const x = (Math.random() - 0.5) * 400;
+      c.animate([
+        { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${x}px, 100vh) rotate(720deg)`, opacity: 0 }
+      ], { duration, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' });
+      setTimeout(() => c.remove(), duration);
+    }
+  }
+
+  // ---- TOAST ----
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = `
+      position: fixed; bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #ff6b9d, #e91e63);
+      color: white; padding: 15px 30px;
+      border-radius: 30px; z-index: 2000;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+      animation: fadeIn 0.4s ease;
+    `;
+    document.body.appendChild(t);
+    setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transition = 'opacity 0.5s';
+      setTimeout(() => t.remove(), 500);
+    }, 3000);
+  }
+
+  // ---- BISOU ----
+  function sendKiss() {
+    const emojis = ['💋', '😘', '💗', '💕'];
+    for (let i = 0; i < 15; i++) {
+      const k = document.createElement('div');
+      k.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      k.style.cssText = `
+        position: fixed;
+        left: ${Math.random() * 100}vw;
+        bottom: 50px;
+        font-size: 2.5rem;
+        z-index: 999;
+        pointer-events: none;
+      `;
+      document.body.appendChild(k);
+      k.animate([
+        { transform: 'translateY(0) scale(0.5)', opacity: 1 },
+        { transform: `translateY(-${Math.random() * 400 + 300}px) scale(1.5) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+      ], { duration: 2500, easing: 'ease-out' });
+      setTimeout(() => k.remove(), 2500);
+    }
+    showToast("Bisou reçu ! 💋💗");
+  }
+
+  // ---- MÉGA SURPRISE ----
+  function bigSurprise() {
+    launchConfetti();
+    setTimeout(launchConfetti, 300);
+    setTimeout(launchConfetti, 600);
+    showToast("🤗 Câlin reçu ! Je t'aime ma femme chérie 💖");
+  }
+
+  // ---- PÉTALES ----
+  function createPetals() {
+    setInterval(() => {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 5 + 6) + 's';
+      document.getElementById('heartsBg').appendChild(p);
+      setTimeout(() => p.remove(), 11000);
+    }, 800);
+  }
+  createPetals();
+
+  // ---- NAVIGATION EXTERNE AVEC TRANSITION ----
+  function goTo(url) {
+    const overlay = document.getElementById('transitionOverlay');
+    overlay.classList.add('show');
+    setTimeout(() => { window.location.href = url; }, 650);
+  }
+
+  // ---- ÉTOILES SCINTILLANTES ----
+  (function createStars() {
+    const stars = ['✦', '✧', '⋆', '˚', '·'];
+    for (let i = 0; i < 18; i++) {
+      const s = document.createElement('div');
+      s.className = 'twinkle-star';
+      s.textContent = stars[Math.floor(Math.random() * stars.length)];
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top = Math.random() * 100 + 'vh';
+      s.style.fontSize = (Math.random() * 12 + 8) + 'px';
+      s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      s.style.animationDelay = Math.random() * 4 + 's';
+      document.body.appendChild(s);
+    }
+  })();
+
+  // ---- PARALLAX CARDS ----
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateZ(4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // Init
+  updateProgress();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Pardon - Myriam ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose-pale: #ffe4e1;
+            --rouge-passion: #e63946;
+            --vert: #2ecc71;
+            --blanc: #ffffff;
+        }
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #fce4ec 0%, #fff5f5 100%);
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            color: #444;
+            animation: bodyEnter 0.9s ease;
+        }
+        @keyframes bodyEnter {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        
+        nav { 
+            position: fixed; 
+            top: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 10px 25px; 
+            border-radius: 50px; 
+            z-index: 3000; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            border: 1px solid var(--rose-pale); 
+        }
+        nav a {
+            text-decoration: none; color: var(--rouge-passion); font-weight: 600;
+            margin: 0 15px; font-size: 0.9rem; cursor: pointer;
+            padding: 4px 8px; border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover { background: var(--rose-pale); transform: translateY(-1px); }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 100px 20px; }
+        
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--rouge-passion); margin-bottom: 20px; }
+        
+        /* Boîte de message optimisée pour le texte long */
+        .message-box { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08); 
+            line-height: 2; 
+            text-align: justify; 
+            margin-bottom: 40px; 
+            border: 1px solid var(--rose-pale);
+            max-height: 600px; /* Évite que la page soit trop longue */
+            overflow-y: auto; /* Ajoute un scroll interne si besoin */
+        }
+        
+        .message-box p { margin-bottom: 20px; }
+
+        .coupon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .coupon { 
+            background: white; 
+            border: 2px dashed var(--rouge-passion); 
+            padding: 20px; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            color: var(--rouge-passion); 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .coupon:hover { background: var(--rose-pale); transform: scale(1.05); }
+        .coupon.selected { border-style: solid; border-color: var(--vert); background: #e8f8f0; color: var(--vert); }
+        
+        .emoji-pop { position: fixed; pointer-events: none; z-index: 5000; animation: floatUp 1.5s forwards; }
+        @keyframes floatUp { to { transform: translateY(-150px) rotate(360deg); opacity: 0; } }
+
+        .btn-home {
+            display: inline-block;
+            margin-top: 50px;
+            color: var(--rouge-passion);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid var(--rouge-passion);
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+        .btn-home:hover { background: var(--rouge-passion); color: white; }
+
+        /* Coupon hover amélioré */
+        .coupon { transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .coupon:hover { transform: scale(1.07) rotate(-1deg); }
+
+        /* Transition overlay */
+        .transition-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffe4f0 100%);
+            z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 15px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.55s ease;
+        }
+        .transition-overlay.show { opacity: 1; pointer-events: all; }
+        .transition-overlay .tov-heart {
+            font-size: 5rem;
+            animation: heartbeat 0.6s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            75% { transform: scale(1.1); }
+        }
+        .transition-overlay .tov-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #e63946;
+            opacity: 0.8;
+        }
+
+        /* Curseur coeur */
+        .cursor-heart { position: fixed; pointer-events: none; z-index: 4000; }
+    </style>
+</head>
+<body>
+
+    <!-- Transition overlay -->
+    <div class="transition-overlay" id="transitionOverlay">
+        <div class="tov-heart">💕</div>
+        <div class="tov-text">avec amour...</div>
+    </div>
+
+    <nav>
+        <a onclick="goTo('index.html')">♡ Site Principal</a>
+        <a onclick="goTo('index 2.html')">Notre Histoire</a>
+        <a class="active">Espace Pardon 🥺</a>
+    </nav>
+
+    <div class="container">
+        <h1>Ma lettre pour toi... 🥺</h1>
+        
+        <div class="message-box">
+            <p><strong>Ma précieuse Myriam,</strong></p>
+
+            <p>Je commence ces lignes avec un poids sur le cœur que je n'arrive pas à exprimer autrement que par ce site, cet espace que j'ai voulu construire comme un sanctuaire pour nous. Cette semaine n'a pas été seulement difficile pour toi ; elle a été révélatrice de mes propres failles. Et la vérité, celle qui me fait mal aujourd'hui, c'est que j'ai échoué à être l'homme que tu mérites d'avoir à tes côtés quand le ciel s'assombrit.</p>
+
+            <p>Je sais que tu as traversé des journées épuisantes, des moments où tu aurais eu besoin d'une épaule, d'une voix familière pour te dire que tout irait bien, ou simplement d'un silence partagé qui apaise. Et pendant que tu luttais contre tes propres tempêtes, j'étais là, mais sans être vraiment présent. J'étais distrait, absorbé par mon propre quotidien, oubliant que ma priorité absolue, mon point d'ancrage, c'est toi.
+
+            <p>Pardon d'avoir été ce fantôme cette semaine.</p>
+            
+            <p>Laisse-moi te prouver que notre Contrat à Durée Infinie est la seule chose qui compte vraiment pour moi. Je t'aime plus que les mots ne pourront jamais l'écrire. Pardonne-moi, mon coeur. On repart à zéro, mais cette fois, je ne lâche plus ta main.</p>
+
+            <p style="text-align: center; font-family: 'Dancing Script'; font-size: 2rem; color: var(--rouge-passion);">Pour toujours, ton futur mari qui t'aime à la folie.</p>
+        </div>
+
+        <h2 style="font-family: 'Dancing Script'; color: var(--rouge-passion); font-size: 2.5rem;">Choisis ta vengeance </h2>
+        <p>Clique sur un bon pour l'activer :</p>
+        
+        <div class="coupon-grid">
+            <div class="coupon" onclick="selectCoupon(this, '💆‍♂️')">🎟️ Un massage de 30 min</div>
+            <div class="coupon" onclick="selectCoupon(this, '🍔')">🍔 Ton fast-food préféré</div>
+            <div class="coupon" onclick="selectCoupon(this, '🍿')">🍿 Soirée film sans râler</div>
+            <div class="coupon" onclick="selectCoupon(this, '🫂')">🫂 Un câlin infini</div>
+        </div>
+
+        <a onclick="goTo('index 2.html')" class="btn-home" style="cursor:pointer;">← Retourner à notre histoire ❤️</a>
+    </div>
+
+    <script>
+        // ---- TRANSITION ----
+        function goTo(url) {
+            const overlay = document.getElementById('transitionOverlay');
+            overlay.classList.add('show');
+            setTimeout(() => { window.location.href = url; }, 650);
+        }
+
+        function selectCoupon(el, emoji) {
+            el.classList.add('selected');
+            const rect = el.getBoundingClientRect();
+            for(let i=0; i<15; i++) {
+                const p = document.createElement('div');
+                p.innerHTML = emoji;
+                p.className = 'emoji-pop';
+                p.style.left = (rect.left + rect.width/2 + (Math.random() - 0.5) * 100) + 'px';
+                p.style.top = (rect.top + rect.height/2) + 'px';
+                p.style.fontSize = '25px';
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1500);
+            }
+        }
+
+        document.onmousemove = (e) => {
+            if (Math.random() > 0.93) {
+                const h = document.createElement('div');
+                h.innerHTML = ['❤️','💕','♡','🌸'][Math.floor(Math.random()*4)];
+                h.className = 'cursor-heart';
+                h.style.left = e.clientX + 'px';
+                h.style.top = e.clientY + 'px';
+                h.style.fontSize = '1.3rem';
+                h.animate([
+                    { opacity: 1, transform: 'translateY(0) scale(1)' },
+                    { opacity: 0, transform: 'translateY(-40px) scale(0.6) rotate(15deg)' }
+                ], { duration: 1000, easing: 'ease-out' });
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 1000);
+            }
+        };
+    </script>
+</body>
+</html>
+
+
+
+
