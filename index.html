@@ -655,6 +655,8 @@
     <li><a data-page="raisons">Pourquoi Je T'aime</a></li>
     <li><a data-page="surprise" id="surpriseLink" class="locked">Surprise</a></li>
     <li><a class="external-link" onclick="goTo('index 2.html')">Notre Histoire</a></li>
+    <li><a class="external-link" href="https://transcendent-hummingbird-e559cf.netlify.app/" target="_blank" rel="noopener">Pour Toi 💌</a></li>
+    <li><a class="external-link" href="https://08112025.netlify.app/" target="_blank" rel="noopener">08/11/2025 ♡</a></li>
   </ul>
 </nav>
 
@@ -960,6 +962,7 @@ Et l'amour qui jamais <span class="accent">ne s'efface</span>.
   document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', (e) => {
       const page = e.target.dataset.page;
+      if (!page) return; // liens externes : on laisse le navigateur gérer
       if (e.target.classList.contains('locked')) {
         showToast("Résous d'abord les 4 énigmes, mon amour ♡");
         return;
